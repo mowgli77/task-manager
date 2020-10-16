@@ -7,19 +7,19 @@ import thunk from "redux-thunk";
 import {applyMiddleware, compose, createStore} from "redux";
 import rootReducer from "./redux/rootReducer";
 import {Provider} from "react-redux";
-import {HashRouter} from "react-router-dom";
+import {BrowserRouter} from "react-router-dom";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 
 ReactDOM.render(
-    <HashRouter>
+    <BrowserRouter>
         <Provider store={store}>
             <React.StrictMode>
                 <App/>
             </React.StrictMode>
         </Provider>
-    </HashRouter>,
+    </BrowserRouter>,
     document.getElementById('root')
 );
 

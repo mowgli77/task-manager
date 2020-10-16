@@ -24,7 +24,6 @@ function App({getAuthThunk}) {
                            render={() => <AddToDo/>}/>
                     <Route exact path={'/auth'}
                            render={() => <Autorization/>}/>
-                    <Redirect to={'/tasks'}/>
                 </Switch>
             </div>
         </>
