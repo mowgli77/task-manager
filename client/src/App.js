@@ -18,7 +18,7 @@ function App({getAuthThunk}) {
             <Header/>
             <div className="container">
                 <Switch>
-                    <Route exact path={'/'}
+                    <Route exact path={'/tasks'}
                            render={() => <ToDoList/>}/>
                     <Route exact path={'/addtask'}
                            render={() => <AddToDo/>}/>
