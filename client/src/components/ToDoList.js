@@ -27,12 +27,12 @@ const ToDoList = ({todos, getToDosThunk, deleteToDoThunk, getToDosCountThunk, pa
                   }) => {
 
     useEffect(() => {
-        getToDosThunk(currentPage - 1)
+        getToDosThunk(currentPage - 1, pageSize)
         getToDosCountThunk()
     }, [currentPage])
 
     const onChangedPage = (page) => {
-        getToDosThunk(page)
+        getToDosThunk(page, pageSize)
     }
 
     return (

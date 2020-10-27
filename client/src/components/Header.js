@@ -16,7 +16,7 @@ const Header = ({isAuth, confirmAuthThunk, isAuthAction}) => {
             <div className={"container view overlay"}>
                 <div>
                     <button type="button" class="btn btn-dark">
-                        <NavLink exact to={'/tasks'} className="navbar-brand">
+                        <NavLink exact to={'/'} className="navbar-brand">
                             Home
                         </NavLink>
                     </button>

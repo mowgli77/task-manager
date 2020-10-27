@@ -1,14 +1,13 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const config = require('config')
 const path = require('path')
-const cors = require('cors')
 
 const app = express()
-const PORT = process.env.PORT || 4000
+const PORT = config.get('port') || 4000
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
-app.use(cors())
 app.use('/api', require('./api'))
 
 if (process.env.NODE_ENV === 'production') {
@@ -21,7 +20,7 @@ if (process.env.NODE_ENV === 'production') {
 
 function start() {
     app.listen(PORT, () => {
-        console.log('Server is started')
+        console.log(`Server is started on port ${PORT}`)
     })
 }
 

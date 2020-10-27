@@ -55,37 +55,37 @@ export const showAlert = (text) => dispatch => {
     }), 1500)
 }
 
-export const getSortNamesABCThunk = (page = 0, count = 3) => async (dispatch) => {
+export const getSortNamesABCThunk = (page = 0, count = 5) => async (dispatch) => {
     const response = await getSortNamesABCAPI(page, count)
     dispatch(getToDos(response.data))
     dispatch(sortNamesByABC())
 }
-export const getSortNamesXYZThunk = (page = 0, count = 3) => async (dispatch) => {
+export const getSortNamesXYZThunk = (page = 0, count = 5) => async (dispatch) => {
     const response = await getSortNamesXYZAPI(page, count)
     dispatch(getToDos(response.data))
     dispatch(sortNamesByZYX())
 }
-export const getSortEmailABCThunk = (page = 0, count = 3) => async (dispatch) => {
+export const getSortEmailABCThunk = (page = 0, count = 5) => async (dispatch) => {
     const response = await getSortEmailABCAPI(page, count)
     dispatch(getToDos(response.data))
     dispatch(sortEmailsByABC())
 }
-export const getSortEmailXYZThunk = (page = 0, count = 3) => async (dispatch) => {
+export const getSortEmailXYZThunk = (page = 0, count = 5) => async (dispatch) => {
     const response = await getSortEmailXYZAPI(page, count)
     dispatch(getToDos(response.data))
     dispatch(sortEmailsByZYX())
 }
-export const getSortTodosABCThunk = (page = 0, count = 3) => async (dispatch) => {
+export const getSortTodosABCThunk = (page = 0, count = 5) => async (dispatch) => {
     const response = await getSortTodosABCAPI(page, count)
     dispatch(getToDos(response.data))
     dispatch(sortToDosByABC())
 }
-export const getSortTodosXYZThunk = (page = 0, count = 3) => async (dispatch) => {
+export const getSortTodosXYZThunk = (page = 0, count = 5) => async (dispatch) => {
     const response = await getSortTodosXYZAPI(page, count)
     dispatch(getToDos(response.data))
     dispatch(sortToDosByZYX())
 }
-export const getToDosThunk = (page = 0, count = 3) => async (dispatch, getState) => {
+export const getToDosThunk = (page = 0, count = 5) => async (dispatch, getState) => {
     const isNamesSorted = getState().toDoDatas.isNamesSorted
     const isEmailSorted = getState().toDoDatas.isEmailSorted
     const isToDoSorted = getState().toDoDatas.isToDoSorted

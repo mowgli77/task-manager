@@ -27,18 +27,18 @@ const ToDoTitle = ({isAuth, isNamesSorted, isEmailSorted, isToDoSorted, getSortN
 
     return (
         <tr>
-            <th scope="col" className={"align-middle "}><button onClick={sortNames} type={"button"} className={"btn btn-dark"}>Name
+            <th scope="col" className={"align-middle "}><button onClick={sortNames} type={"button"} className={"btn btn-dark"} title={'Click on to sort by names'}>Name
                 {isNamesSorted === 0 ? <i className="large material-icons">expand_more</i> : isNamesSorted === 1 ? <i className="large material-icons">expand_less</i> : null }
             </button></th>
-            <th scope="col" className={"align-middle "}><button onClick={sortEmails} type={"button"} className={"btn btn-dark"}>Email
+            <th scope="col" className={"align-middle "}><button onClick={sortEmails} type={"button"} className={"btn btn-dark"} title={'Click on to sort by emails'}>Email
                 {isEmailSorted === 0 ? <i className="large material-icons">expand_more</i> : isEmailSorted === 1 ? <i className="large material-icons">expand_less</i> : null }
             </button></th>
-            <th scope="col" width={400} className={"align-middle "}><button onClick={sortToDos} type={"button"} className={"btn btn-dark"}>ToDo Description
+            <th scope="col" width={400} className={"align-middle "}><button onClick={sortToDos} type={"button"} className={"btn btn-dark"} title={'Click on to sort by descriptions'}>Task Description
                 {isToDoSorted === 0 ? <i className="large material-icons">expand_more</i> : isToDoSorted === 1 ? <i className="large material-icons">expand_less</i> : null }
             </button></th>
             <th scope="col" width={100} className={"align-middle text-center"}>Status</th>
             <th scope="col" width={100} className={"align-middle text-center"}>Changed by Administrator</th>
-            {isAuth == true && <th scope="col" width={150} className={"align-middle "}>Delete Todo</th>}
+            {isAuth == true && <th scope="col" width={150} className={"align-middle "}>Delete Task</th>}
         </tr>
     );
 }

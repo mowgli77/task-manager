@@ -19,7 +19,7 @@ import {
 const Initialstate = {
     todos: [],
     toDosCount: null,
-    pageSize: 3,
+    pageSize: 5,
     currentPage: 1,
     alert: null,
     auth: null,

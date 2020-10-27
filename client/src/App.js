@@ -3,7 +3,7 @@ import './App.css';
 import ToDoList from "./components/ToDoList";
 import AddToDo from "./components/AddToDo";
 import Header from "./components/Header";
-import {Route, Switch, Redirect} from "react-router-dom";
+import {Route, Switch} from "react-router-dom";
 import Autorization from "./components/Autorization";
 import {connect} from "react-redux";
 import {getAuthThunk} from "./redux/actions";
@@ -18,7 +18,7 @@ function App({getAuthThunk}) {
             <Header/>
             <div className="container">
                 <Switch>
-                    <Route exact path={'/tasks'}
+                    <Route exact path={'/'}
                            render={() => <ToDoList/>}/>
                     <Route exact path={'/addtask'}
                            render={() => <AddToDo/>}/>

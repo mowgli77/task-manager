@@ -14,7 +14,9 @@ const ToDo = ({todoItem, deleteToDoThunk, changeStatusThunk, adminChangedThunk, 
         setInputValue(e.currentTarget.value)
     }
     const saveAdminChanges = () => {
-        if (todoItem.todo !== inputValue) {
+        if (inputValue.length > 100) {
+            showAlert('Must be 100 characters or less')
+        } else if (todoItem.todo !== inputValue) {
             adminChangedThunk(todoItem.id, inputValue, 1)
             setReductMode(false)
         } else {
@@ -24,7 +26,6 @@ const ToDo = ({todoItem, deleteToDoThunk, changeStatusThunk, adminChangedThunk, 
     const deleteTodo = () => {
         deleteToDoThunk(todoItem.id)
     }
-
 
     return (
         <tr>
@@ -36,14 +37,14 @@ const ToDo = ({todoItem, deleteToDoThunk, changeStatusThunk, adminChangedThunk, 
                     <button type={"button"} onClick={saveAdminChanges} className={"btn btn-dark btn-sm mt-n1 ml-2"}>Save</button>
                     <button type={"button"} onClick={() => setReductMode(false)} className={"btn btn-dark btn-sm mt-n1 ml-2"}>Exit</button>
                 </div>
-                : <span onClick={() => setReductMode(true)} role={"button"}>{todoItem.todo}</span>} </td>}
+                : <span onClick={() => setReductMode(true)} role={"button"} title={'Click on description to change it'}>{todoItem.todo}</span>} </td>}
             {isAuth ? <td className={"text-center"}><input type={'checkbox'} onClick={changeStatus} checked={todoItem.status}/></td>
             : <td className={"text-center"}><input type={'checkbox'} checked={todoItem.status}/></td>}
 
             <td className={"text-center"}><input type={'checkbox'} checked={todoItem.changed}/>
             </td>
             {isAuth == true && <td>
-                <button className={"btn btn-dark"} onClick={deleteTodo}>Delete Todo</button>
+                <button className={"btn btn-dark"} onClick={deleteTodo}>Delete Task</button>
             </td>}
         </tr>
     );

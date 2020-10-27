@@ -15,10 +15,10 @@ const AddToDoForm = ({handleSubmit}) => {
             <Field component={Input} name={'email'} label={'Your email'} validate={[required, notEmail]} type={'email'}/>
         </div>
         <div>
-            <Field component={Textarea} name={'todo'} label={'Description of new ToDo'} validate={[required, length100]}/>
+            <Field component={Textarea} name={'todo'} label={'Description of new task'} validate={[required, length100]}/>
         </div>
         <div>
-            <button type="submit" className={"btn btn-dark"}>Add new ToDo</button>
+            <button type="submit" className={"btn btn-dark"}>Add New Task</button>
         </div>
     </form>
 }
