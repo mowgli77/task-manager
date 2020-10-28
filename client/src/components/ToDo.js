@@ -38,7 +38,7 @@ const ToDo = ({todoItem, deleteToDoThunk, changeStatusThunk, adminChangedThunk, 
                     <button type={"button"} onClick={() => setReductMode(false)} className={"btn btn-dark btn-sm mt-n1 ml-2"}>Exit</button>
                 </div>
                 : <span onClick={() => setReductMode(true)} role={"button"} title={'Click on description to change it'}>{todoItem.todo}</span>} </td>}
-            {isAuth ? <td className={"text-center"}><input type={'checkbox'} onClick={changeStatus} checked={todoItem.status}/></td>
+            {isAuth ? <td className={"text-center"}><input role={"button"} type={'checkbox'} onClick={changeStatus} checked={todoItem.status}/></td>
             : <td className={"text-center"}><input type={'checkbox'} checked={todoItem.status}/></td>}
 
             <td className={"text-center"}><input type={'checkbox'} checked={todoItem.changed}/>
