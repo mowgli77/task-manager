@@ -34,7 +34,7 @@ const ToDo = ({todoItem, deleteToDoThunk, changeStatusThunk, adminChangedThunk, 
             {!isAuth ? <td>{todoItem.todo}</td>
                 :
             <td> {reductMode ? <div><input autoFocus={true} value={inputValue} onChange={changeInputValue}/>
-                    <button type={"button"} onClick={saveAdminChanges} className={"btn btn-dark btn-sm mt-n1 ml-2"}>Save</button>
+                    <button type={"button"} onClick={saveAdminChanges} disabled={inputValue.trim().length === 0} className={"btn btn-dark btn-sm mt-n1 ml-2"}>Save</button>
                     <button type={"button"} onClick={() => setReductMode(false)} className={"btn btn-dark btn-sm mt-n1 ml-2"}>Exit</button>
                 </div>
                 : <span onClick={() => setReductMode(true)} role={"button"} title={'Click on description to change it'}>{todoItem.todo}</span>} </td>}
