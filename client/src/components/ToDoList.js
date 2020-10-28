@@ -19,11 +19,12 @@ import {
 } from "../redux/actions";
 import ToDoTitle from "./ToDoTitle";
 import Pagination from "./Pagination";
+import Loader from "./Loader";
 
 
 const ToDoList = ({todos, getToDosThunk, deleteToDoThunk, getToDosCountThunk, pageSize, toDosCount, isAuth, showAlert, currentPage, setCurrentPage, alert, changeStatusThunk, adminChangedThunk,
                       isNamesSorted, isEmailSorted, isToDoSorted, getSortNamesABCThunk, getSortNamesXYZThunk, getSortEmailABCThunk, getSortEmailXYZThunk,
-                      getSortTodosABCThunk, getSortTodosXYZThunk
+                      getSortTodosABCThunk, getSortTodosXYZThunk, isLoading
                   }) => {
 
     useEffect(() => {
@@ -55,7 +56,7 @@ const ToDoList = ({todos, getToDosThunk, deleteToDoThunk, getToDosCountThunk, pa
                            getSortTodosXYZThunk={getSortTodosXYZThunk}
                 />
                 </thead>
-                <tbody>
+                { !isLoading && <tbody>
                 {todos.map(t => <ToDo todoItem={t}
                                           key={t.id}
                                           deleteToDoThunk={deleteToDoThunk}
@@ -64,15 +65,16 @@ const ToDoList = ({todos, getToDosThunk, deleteToDoThunk, getToDosCountThunk, pa
                                           isAuth={isAuth}
                                           showAlert={showAlert}
                 />)}
-                </tbody>
+                </tbody> }
             </table>
-            {todos.length == 0 && <h1 style={{textAlign: 'center'}}>You don`t have tasks</h1>}
-            <Pagination toDosCount={toDosCount}
+            { isLoading && <Loader /> }
+            {todos.length == 0 && !isLoading && <h1 style={{textAlign: 'center'}}>You don`t have tasks yet</h1>}
+            { !isLoading && <Pagination toDosCount={toDosCount}
                         pageSize={pageSize}
                         onChangedPage={onChangedPage}
                         currentPage={currentPage}
                         setCurrentPage={setCurrentPage}
-            />
+            /> }
         </div>
     );
 }
@@ -87,7 +89,8 @@ const mapStateToProps = (state) => ({
     currentPage: state.toDoDatas.currentPage,
     isNamesSorted: state.toDoDatas.isNamesSorted,
     isEmailSorted: state.toDoDatas.isEmailSorted,
-    isToDoSorted: state.toDoDatas.isToDoSorted
+    isToDoSorted: state.toDoDatas.isToDoSorted,
+    isLoading: state.toDoDatas.isLoading
 })
 export default connect(mapStateToProps, {getToDosThunk,
     deleteToDoThunk,

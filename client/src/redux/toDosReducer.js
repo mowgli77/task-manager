@@ -13,7 +13,7 @@ import {
     SORT_TODOS_BY_ABC,
     SORT_TODOS_BY_ZYX,
     TODOS_COUNT,
-    SET_CURRENT_PAGE
+    SET_CURRENT_PAGE, SET_LOADER
 } from "./types";
 
 const Initialstate = {
@@ -27,6 +27,7 @@ const Initialstate = {
     isNamesSorted: null,
     isEmailSorted: null,
     isToDoSorted: null,
+    isLoading: false
 }
 
 export const toDosReducer = (state = Initialstate, action) => {
@@ -121,6 +122,11 @@ export const toDosReducer = (state = Initialstate, action) => {
             return {
                 ...state,
                 isToDoSorted: 0,
+            }
+        case SET_LOADER:
+            return {
+                ...state,
+                isLoading: action.isLoading
             }
 
         default:

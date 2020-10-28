@@ -47,9 +47,9 @@ router.get('/count', (req, res) => {
 })
 router.post('/addtodo',
     [
-        check('name', 'Min length of password is 6 symbols').isLength({ max: 20 }),
-        check('email', 'Min length of password is 6 symbols').isEmail(),
-        check('todo', 'Min length of password is 6 symbols').isLength({ max: 100 })
+        check('name', 'Max length of name is 20 symbols').isLength({ max: 20 }),
+        check('email', 'Must be correct email address').isEmail(),
+        check('todo', 'Max length is 100 symbols and it can`t be empty').isLength({ max: 100 })
     ],
     (req, res) => {
         const errors = validationResult(req)
@@ -77,8 +77,8 @@ router.delete('/delete/:id', (req, res) => {
 })
 router.post('/createauth',
     [
-        check('name', 'Min length of password is 6 symbols').isLength({ max: 20 }),
-        check('email', 'Min length of password is 6 symbols').isEmail()
+        check('name', 'Max length of name is 20 symbols').isLength({ max: 20 }),
+        check('email', 'Must be correct email address').isEmail()
     ],
     (req, res) => {
         const errors = validationResult(req)
@@ -118,7 +118,7 @@ router.post('/updatestatus',  (req, res) => {
 })
 router.post('/changed',
     [
-        check('todo', 'Min length of password is 6 symbols').isLength({ max: 100 })
+        check('todo', 'The field can`t be empty and max length is 100 symbols').isLength({ min: 1, max: 100 })
     ],
     (req, res) => {
         const errors = validationResult(req)

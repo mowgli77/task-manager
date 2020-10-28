@@ -12,7 +12,8 @@ import {
     SORT_TODOS_BY_ABC,
     SORT_TODOS_BY_ZYX,
     TODOS_COUNT,
-    SET_CURRENT_PAGE
+    SET_CURRENT_PAGE,
+    SET_LOADER
 } from "./types";
 import {
     addToDoAPI,
@@ -44,6 +45,7 @@ export const sortToDosByABC = () => ({type: SORT_TODOS_BY_ABC})
 export const sortNamesByZYX = () => ({type: SORT_NAMES_BY_ZYX})
 export const sortEmailsByZYX = () => ({type: SORT_EMAILS_BY_ZYX})
 export const sortToDosByZYX = () => ({type: SORT_TODOS_BY_ZYX})
+export const setLoader = (isLoading) => ({type: SET_LOADER, isLoading})
 
 export const showAlert = (text) => dispatch => {
     dispatch({
@@ -56,36 +58,49 @@ export const showAlert = (text) => dispatch => {
 }
 
 export const getSortNamesABCThunk = (page = 0, count = 5) => async (dispatch) => {
+    dispatch(setLoader(true))
     const response = await getSortNamesABCAPI(page, count)
     dispatch(getToDos(response.data))
     dispatch(sortNamesByABC())
+    dispatch(setLoader(false))
 }
 export const getSortNamesXYZThunk = (page = 0, count = 5) => async (dispatch) => {
+    dispatch(setLoader(true))
     const response = await getSortNamesXYZAPI(page, count)
     dispatch(getToDos(response.data))
     dispatch(sortNamesByZYX())
+    dispatch(setLoader(false))
 }
 export const getSortEmailABCThunk = (page = 0, count = 5) => async (dispatch) => {
+    dispatch(setLoader(true))
     const response = await getSortEmailABCAPI(page, count)
     dispatch(getToDos(response.data))
     dispatch(sortEmailsByABC())
+    dispatch(setLoader(false))
 }
 export const getSortEmailXYZThunk = (page = 0, count = 5) => async (dispatch) => {
+    dispatch(setLoader(true))
     const response = await getSortEmailXYZAPI(page, count)
     dispatch(getToDos(response.data))
     dispatch(sortEmailsByZYX())
+    dispatch(setLoader(false))
 }
 export const getSortTodosABCThunk = (page = 0, count = 5) => async (dispatch) => {
+    dispatch(setLoader(true))
     const response = await getSortTodosABCAPI(page, count)
     dispatch(getToDos(response.data))
     dispatch(sortToDosByABC())
+    dispatch(setLoader(false))
 }
 export const getSortTodosXYZThunk = (page = 0, count = 5) => async (dispatch) => {
+    dispatch(setLoader(true))
     const response = await getSortTodosXYZAPI(page, count)
     dispatch(getToDos(response.data))
     dispatch(sortToDosByZYX())
+    dispatch(setLoader(false))
 }
 export const getToDosThunk = (page = 0, count = 5) => async (dispatch, getState) => {
+    dispatch(setLoader(true))
     const isNamesSorted = getState().toDoDatas.isNamesSorted
     const isEmailSorted = getState().toDoDatas.isEmailSorted
     const isToDoSorted = getState().toDoDatas.isToDoSorted
@@ -94,6 +109,7 @@ export const getToDosThunk = (page = 0, count = 5) => async (dispatch, getState)
         : isEmailSorted === 0 ? dispatch(getSortEmailXYZThunk(page)) : isEmailSorted === 1 ? dispatch(getSortEmailABCThunk(page))
             : isToDoSorted === 0 ? dispatch(getSortTodosXYZThunk(page)) : isToDoSorted === 1 ? dispatch(getSortTodosABCThunk(page))
                 : dispatch(getToDos(response.data))
+    dispatch(setLoader(false))
 }
 
 export const getToDosCountThunk = () => async (dispatch) => {
@@ -148,13 +164,23 @@ export const changeStatusThunk = (status, id) => async (dispatch) => {
     }
 }
 export const adminChangedThunk = (id, todo, changed) => async (dispatch, getState) => {
-    const page = getState().toDoDatas.currentPage - 1
-    const res = await getAuthAPI()
-    if (res.data.auth === 1) {
-        const response = await adminChangedAPI(id, todo, changed)
-        dispatch(getToDosThunk(page))
-    } else {
-        dispatch(showAlert('You are not autorized'))
-        dispatch(isAuthAction(0))
+    try {
+        const page = getState().toDoDatas.currentPage - 1
+        const res = await getAuthAPI()
+        if (res.data.auth === 1) {
+            const response = await adminChangedAPI(id, todo, changed)
+            console.log(response)
+            if (response.status === 200) {
+                dispatch(getToDosThunk(page))
+            }
+        } else {
+            dispatch(showAlert('You are not autorized'))
+            dispatch(isAuthAction(0))
+        }
+    } catch(e) {
+        console.log(e.response)
+        if (e.response.status === 400) {
+            dispatch(showAlert(e.response.data.errors[0].msg))
+        }
     }
 }
